@@ -116,8 +116,20 @@ def update_adam_moments(state, grads, beta1, beta2):
 
     return state
 
-# Step 9 - bias_correct_moments (not yet solved)
-# TODO: implement
+# Step 9 - bias_correct_moments
+def bias_correct_moments(state, beta1, beta2):
+    t = state["t"]
+    denominator_1 = 1 - beta1**t
+    denominator_2 = 1 - beta2**t
+
+    m_hat = {}
+    v_hat = {}
+
+    for key in state["m"]:
+        m_hat[key] = state["m"][key] / denominator_1
+        v_hat[key] = state["v"][key] / denominator_2
+
+    return (m_hat, v_hat)
 
 # Step 10 - adam_param_step (not yet solved)
 # TODO: implement
