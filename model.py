@@ -89,8 +89,19 @@ def model_backward(params, cache, labels):
 
     return {"W1": dW1, "b1": db1, "W2": dW2, "b2": db2}
 
-# Step 7 - init_adamw_state (not yet solved)
-# TODO: implement
+# Step 7 - init_adamw_state
+import numpy as np
+
+def init_adamw_state(params):
+    m = {}
+    v = {}
+
+    for key, item in params.items():
+        shape = item.shape
+        m[key] = np.zeros(shape, dtype=item.dtype)
+        v[key] = np.zeros(shape, dtype=item.dtype)
+
+    return {"m": m, "v": v, "t": 0}
 
 # Step 8 - update_adam_moments (not yet solved)
 # TODO: implement
