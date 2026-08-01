@@ -25,8 +25,23 @@ import numpy as np
 def relu(x):
     return np.where(x > 0, x, 0)
 
-# Step 3 - model_forward (not yet solved)
-# TODO: implement
+# Step 3 - model_forward
+import numpy as np
+
+def model_forward(params, x):
+    """Run the 2-layer MLP forward pass and stash intermediates for backprop."""
+    W1 = params["W1"]
+    b1 = params["b1"]
+    W2 = params["W2"]
+    b2 = params["b2"]
+
+    z1 = np.matmul(x, W1) + b1
+    h1 = relu(z1)
+    logits = np.matmul(h1, W2) + b2
+
+    cache_dict = {"x": x, "z1": z1, "h1": h1, "logits": logits}
+
+    return (logits, cache_dict)
 
 # Step 4 - softmax (not yet solved)
 # TODO: implement
