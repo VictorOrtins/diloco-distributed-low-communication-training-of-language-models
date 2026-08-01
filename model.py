@@ -19,8 +19,11 @@ def init_model_params(input_dim, hidden_dim, output_dim, seed=0):
 
     return {"W1": W1, "b1": b1, "W2": W2, "b2": b2}
 
-# Step 2 - relu (not yet solved)
-# TODO: implement
+# Step 2 - relu
+import numpy as np
+
+def relu(x):
+    return np.where(x > 0, x, 0)
 
 # Step 3 - model_forward (not yet solved)
 # TODO: implement
