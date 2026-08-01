@@ -43,8 +43,16 @@ def model_forward(params, x):
 
     return (logits, cache_dict)
 
-# Step 4 - softmax (not yet solved)
-# TODO: implement
+# Step 4 - softmax
+import numpy as np
+
+def softmax(logits):
+    logits_max = np.max(logits, axis=1, keepdims=True)
+    logits_sub = logits - logits_max
+    logits_expo = np.exp(logits_sub)
+    logits_sum = np.sum(logits_expo, axis=1, keepdims=True)
+
+    return logits_expo / logits_sum
 
 # Step 5 - cross_entropy_loss (not yet solved)
 # TODO: implement
