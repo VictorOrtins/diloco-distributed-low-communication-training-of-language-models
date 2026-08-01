@@ -64,8 +64,30 @@ def cross_entropy_loss(logits, labels):
 
     return - float(np.mean(probs_log))
 
-# Step 6 - model_backward (not yet solved)
-# TODO: implement
+# Step 6 - model_backward
+def model_backward(params, cache, labels):
+    x = cache["x"]
+    z1 = cache["z1"]
+    h1 = cache["h1"]
+    logits = cache["logits"]
+    W2 = params["W2"]
+
+    p = softmax(logits)
+    N = p.shape[0]
+
+    dlogits = p
+    dlogits[np.arange(N), labels] -= 1.0
+    dlogits /= N
+
+    dW2 = np.matmul(h1.T, dlogits)
+    db2 = dlogits.sum(axis=0)
+    dh1 = np.matmul(dlogits, W2.T)
+    dz1 = dh1 * (z1 > 0).astype(z1.dtype)
+
+    dW1 = np.matmul(x.T, dz1)
+    db1 = dz1.sum(axis=0)
+
+    return {"W1": dW1, "b1": db1, "W2": dW2, "b2": db2}
 
 # Step 7 - init_adamw_state (not yet solved)
 # TODO: implement
