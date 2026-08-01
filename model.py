@@ -54,8 +54,15 @@ def softmax(logits):
 
     return logits_expo / logits_sum
 
-# Step 5 - cross_entropy_loss (not yet solved)
-# TODO: implement
+# Step 5 - cross_entropy_loss
+def cross_entropy_loss(logits, labels):
+    probs = softmax(logits)
+    N = probs.shape[0]
+
+    probs_filtered = probs[np.arange(N), labels]
+    probs_log = np.log(probs_filtered)
+
+    return - float(np.mean(probs_log))
 
 # Step 6 - model_backward (not yet solved)
 # TODO: implement
